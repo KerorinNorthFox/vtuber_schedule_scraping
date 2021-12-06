@@ -3,7 +3,7 @@ import requests, sys, random, time
 
 URL = 'https://virtual-youtuber.userlocal.jp/schedules'
 
-V_NAME = ['博衣こより', '勇凪エレナ']
+V_NAME = ['白百合リリィ', '勇凪エレナ', '泡沫メモリ', '猫芒ベル', 'クロノロク']
 
 class Schedule_Scraping:
     def __init__(self):
@@ -40,7 +40,7 @@ class Schedule_Scraping:
         for v_name in text:
             counter_2 += 1
             for needed_v_name in V_NAME:
-                if v_name == needed_v_name:
+                if needed_v_name in v_name:
                     v_data.append([v_name, counter_2])
                 else:
                     pass

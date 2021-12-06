@@ -8,11 +8,13 @@ V_NAME = ['白百合リリィ', '勇凪エレナ', '泡沫メモリ', '猫芒ベ
 class Schedule_Scraping:
     def __init__(self):
         alz = self.parse(URL)
-        text = self.analyzing(alz)
-        print(type(text))
-        print(text)
-        v_data = self.find_v(text)
-        print(v_data)
+        v_Names_Text = self.analyzing(alz)
+        hours_Text = self.hours(alz)
+        print(type(v_Names_Text))
+        print(v_Names_Text)
+        print(hours_Text)
+        v_Data = self.find_v(v_Names_Text)
+        print(v_Data)
         time.sleep(3)
     
     def parse(self, url):
@@ -20,31 +22,39 @@ class Schedule_Scraping:
         alz = BeautifulSoup(response.text, 'html.parser')
         return alz
 
-    def nubmer_of_a_tags(self, ):
-        pass
-
-    def analyzing(self, alz):
-        counter_1 = 0
+    def hours(self, alz):
+        counter = 0
         text = []
         try:
             while(True):
-                text.append(alz.select('.no-propagation')[counter_1].text)
-                counter_1 += 1
+                text.append(alz.select('.hour')[counter].text)
+                counter += 1
         except:
-            print(">>finish analyzing")
+            print(">>finish analyzing hours")
+        return text
+
+    def analyzing(self, alz):
+        counter = 0
+        text = []
+        try:
+            while(True):
+                text.append(alz.select('.no-propagation')[counter].text)
+                counter += 1
+        except:
+            print(">>finish analyzing names")
         return text
 
     def find_v(self, text):
-        counter_2 = 0
-        v_data = []
-        for v_name in text:
-            counter_2 += 1
-            for needed_v_name in V_NAME:
-                if needed_v_name in v_name:
-                    v_data.append([v_name, counter_2])
+        counter = 0
+        v_Data = []
+        for v_Name in text:
+            counter += 1
+            for needed_V_Name in V_NAME:
+                if needed_V_Name in v_Name:
+                    v_Data.append([v_Name, counter])
                 else:
                     pass
-        return v_data
+        return v_Data
 
 ###START#######################################
 if __name__ == "__main__":

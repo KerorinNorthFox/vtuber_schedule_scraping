@@ -1,4 +1,3 @@
-from _typeshed import _VT
 from bs4 import BeautifulSoup
 import requests, sys, random, time
 

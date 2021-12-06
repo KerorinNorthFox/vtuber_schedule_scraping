@@ -15,7 +15,7 @@ class Schedule_Scraping:
         print(hours_Text)
         v_Data = self.find_v(v_Names_Text)
         print(v_Data)
-        time.sleep(3)
+        time.sleep(1)
     
     def parse(self, url):
         response = requests.get(url, headers={'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.114 Safari/537.36'})
@@ -58,6 +58,9 @@ class Schedule_Scraping:
 
 ###START#######################################
 if __name__ == "__main__":
+    print(">>開始")
+    time.sleep(3)
     Schedule_Scraping()
+    print("終了")
     time.sleep(3)
     sys.exit()

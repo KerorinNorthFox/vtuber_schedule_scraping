@@ -1,0 +1,2 @@
+# vtuber_schedule_scraping
+v_name_list.csvに書いたvtuberのスケジュールを以下のサイトから持ってくるプログラム

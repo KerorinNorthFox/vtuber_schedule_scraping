@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
-import requests, sys, time, csv
+import requests, sys, time, csv, holov_name_list
 
+v_Name_List = holov_name_list.v_Name_List
 URL = 'https://schedule.hololive.tv/simple/hololive'
 PARTITION = '-----------------------------------------'
 
@@ -17,8 +18,6 @@ def decorator_func(x):
 @decorator_func("プログラム")
 class Schedule_Scraping(object):
     def __init__(self):
-        """名前リスト作成"""
-        v_Name_List = self.make_V_List()
         """htmlパース"""
         alz = self.parse(URL)
         """html解析"""
@@ -26,6 +25,7 @@ class Schedule_Scraping(object):
         time.sleep(1)
         """目的の名前検索"""
         v_Data = self.find_v(result, v_Name_List)
+        print(v_Data)
         """結果表示"""
         self.show(v_Data)
         time.sleep(1)
@@ -64,14 +64,6 @@ class Schedule_Scraping(object):
         for counter in range(len(v_Data)):
             print(f">>{v_Data[counter][0]}時: {v_Data[counter][1]}\n")
         print(PARTITION)
-
-    @decorator_func("名前リスト作成")
-    def make_V_List(self):
-        with open('holov_name_list.csv', 'r', newline='', encoding='utf=8') as f:
-            v_Name_List_Obj = csv.reader(f)
-            for v_Name_List in v_Name_List_Obj:
-                pass
-            return v_Name_List
 
 ###START#######################################
 if __name__ == "__main__":

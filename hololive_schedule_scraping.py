@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests, sys, time, csv, holov_name_list
+import requests, sys, time, holov_name_list
 
 v_Name_List = holov_name_list.v_Name_List
 URL = 'https://schedule.hololive.tv/simple/hololive'
@@ -15,21 +15,7 @@ def decorator_func(x):
         return wrapper
     return decorator_func
 
-@decorator_func("プログラム")
-class Schedule_Scraping(object):
-    def __init__(self):
-        """htmlパース"""
-        alz = self.parse(URL)
-        """html解析"""
-        result = self.analyzing(alz, 'a')
-        time.sleep(1)
-        """目的の名前検索"""
-        v_Data = self.find_v(result, v_Name_List)
-        print(v_Data)
-        """結果表示"""
-        self.show(v_Data)
-        time.sleep(1)
-    
+class Schedule_Scraping(object):    
     @decorator_func("htmlパース")
     def parse(self, url):
         response = requests.get(url, headers={'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.114 Safari/537.36'})
@@ -65,8 +51,22 @@ class Schedule_Scraping(object):
             print(f">>{v_Data[counter][0]}時: {v_Data[counter][1]}\n")
         print(PARTITION)
 
+@decorator_func("プログラム")
+class Operate(Schedule_Scraping):
+    def __init__(self):
+        """htmlパース"""
+        alz = self.parse(URL)
+        """html解析"""
+        result = self.analyzing(alz, 'a')
+        time.sleep(1)
+        """目的の名前検索"""
+        v_Data = self.find_v(result, v_Name_List)
+        """結果表示"""
+        self.show(v_Data)
+        time.sleep(1)
+
 ###START#######################################
 if __name__ == "__main__":
-    Schedule_Scraping()
+    Operate()
     time.sleep(3)
     sys.exit()

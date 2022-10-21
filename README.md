@@ -1,0 +1,2 @@
+# vtuber_schedule_scraping
+任意のvtuberのスケジュールをスクレイピング
